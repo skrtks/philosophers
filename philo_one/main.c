@@ -51,7 +51,7 @@ t_philo *init_philos(t_data *data, pthread_t **philo_threads)
 	data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	philos = malloc(sizeof(t_philo) * data->n_philos);
 	*philo_threads = malloc(sizeof(pthread_t) * data->n_philos);
-	if (!data->fork_mutex || !philos || !philo_threads)
+	if (!data->fork_mutex || !philos || !*philo_threads)
 		return (NULL); // TODO: Free philos
 	i = 0;
 	while (i < data->n_philos)

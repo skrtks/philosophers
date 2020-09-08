@@ -13,7 +13,6 @@
 #include <zconf.h>
 #include <sys/time.h>
 #include <pthread.h>
-#include "ft_strtoll.h"
 #include "philosophers.h"
 
 size_t	ft_strlen(const char *str)
@@ -47,7 +46,7 @@ void		ft_putnbr_fd(uint64_t n, int fd)
 	}
 	if (n > 9)
 		ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd(n % 10 + '0', fd);
+	ft_putchar_fd((char)(n % 10 + '0'), fd);
 }
 
 int announce(char *message)

@@ -15,7 +15,7 @@
 #include "ft_strtoll.h"
 #include "philosophers.h"
 
-static void					preprocess(int *i, char *str, t_info *info)
+static void					preprocess(int *i, const char *str, t_info *info)
 {
 	while (str[*i] < 32)
 		(*i)++;
@@ -58,11 +58,11 @@ static unsigned long long	convert(unsigned long long res, const char *str,
 	while (str[i])
 	{
 		if (str[i] >= '0' && str[i] < '0' + info->base)
-			c = str[i] - '0';
+			c = (char)(str[i] - '0');
 		else if (str[i] >= 'a' && str[i] < 'a' + (info->base - 10))
-			c = str[i] - 'a' + 10;
+			c = (char)(str[i] - 'a' + 10);
 		else if (str[i] >= 'A' && str[i] < 'A' + (info->base - 10))
-			c = str[i] - 'A' + 10;
+			c = (char)(str[i] - 'A' + 10);
 		else
 			break ;
 		if (info->any < 0 || res > info->cutoff || (res == info->cutoff &&
@@ -104,5 +104,5 @@ long long					ft_strtoll(char *str, int base)
 	}
 	else if (info.neg)
 		res = -res;
-	return (res);
+	return ((long long)res);
 }
