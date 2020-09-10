@@ -44,8 +44,6 @@ typedef struct		s_philo
 	t_data			*data;
 	uint64_t		last_eaten;
 	int				amount_eaten;
-//	int				l_fork;
-//	int				r_fork;
 }					t_philo;
 
 int announce(char *message);
