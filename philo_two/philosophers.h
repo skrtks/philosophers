@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_PHILOSOPHERS_H
-#define PHILO_ONE_PHILOSOPHERS_H
+#ifndef PHILOSOPHERS_H
+#define PHILOSOPHERS_H
 
 #include <stdint.h>
 #include <zconf.h>
@@ -62,4 +62,4 @@ int safe_announce(char *message, t_philo *philo, int death);
 void close_semaphores(t_data *data);
 int open_semaphores(t_data *data);
 
-#endif //PHILO_ONE_PHILOSOPHERS_H
+#endif //PHILOSOPHERS_H

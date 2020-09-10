@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_ONE_PHILOSOPHERS_H
-#define PHILO_ONE_PHILOSOPHERS_H
+#ifndef PHILOSOPHERS_H
+#define PHILOSOPHERS_H
 
 #include <stdint.h>
 #include <zconf.h>
@@ -61,4 +61,4 @@ void my_usleep(uint64_t wait, t_philo *philo);
 int safe_announce(char *message, t_philo *philo, int death);
 void destroy_mutexes(t_data* data, int pos);
 
-#endif //PHILO_ONE_PHILOSOPHERS_H
+#endif //PHILOSOPHERS_H
