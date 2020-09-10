@@ -73,6 +73,7 @@ void start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 		usleep(50);
 		i++;
 	}
+	i--;
 	while (i > 0)
 	{
 		pthread_join(philo_threads[i], NULL);
