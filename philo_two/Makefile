@@ -41,6 +41,6 @@ clean:
 
 fclean: clean
 	-rm -f $(NAME)
-	-rm -rf philo_one.dSYM
+	-rm -rf philo_two.dSYM
 
 re: fclean all

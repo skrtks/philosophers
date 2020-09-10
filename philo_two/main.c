@@ -67,8 +67,6 @@ t_philo *init_philos(t_data *data, pthread_t **philo_threads)
 		philos[i].id = i + 1;
 		philos[i].data = data;
 		philos[i].amount_eaten = 0;
-		philos[i].l_fork = i;
-		philos[i].r_fork = (i + 1) % data->n_philos;
 		i++;
 	}
 	return (philos);
