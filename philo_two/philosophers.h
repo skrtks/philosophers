@@ -34,8 +34,6 @@ typedef struct		s_data
 	int				n_meals;
 	sem_t			*fork_sema;
 	sem_t			*write_sema;
-	sem_t			*eat_sema;
-	sem_t			*death_sema;
 	t_state			state;
 	uint64_t		start_time;
 }					t_data;
