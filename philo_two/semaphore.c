@@ -23,10 +23,10 @@ void close_semaphores(t_data *data)
 
 int open_semaphores(t_data *data)
 {
-	sem_open("/fork_sema", O_CREAT, 0644, data->n_philos);
-	sem_open("/write_sema", O_CREAT, 0644, 1);
-	sem_open("/eat_sema", O_CREAT, 0644, 1);
-	sem_open("/death_sema", O_CREAT, 0644, 1);
+	data->fork_sema = sem_open("/fork_sema", O_CREAT, 0644, data->n_philos);
+	data->write_sema = sem_open("/write_sema", O_CREAT, 0644, 1);
+	data->eat_sema = sem_open("/eat_sema", O_CREAT, 0644, 1);
+	data->death_sema = sem_open("/death_sema", O_CREAT, 0644, 1);
 	sem_unlink("/fork_sema");
 	sem_unlink("/write_sema");
 	sem_unlink("/eat_sema");
