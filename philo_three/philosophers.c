@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include <pthread/pthread.h>
+#include <stdlib.h>
+#include <signal.h>
 #include "philosophers.h"
 
 void eat(t_philo *philo)
@@ -25,6 +27,8 @@ void eat(t_philo *philo)
 	philo->amount_eaten++;
 	sem_post(philo->data->fork_sema);
 	sem_post(philo->data->fork_sema);
+	if (philo->amount_eaten == philo->data->n_meals)
+		sem_post(philo->data->finished_sema);
 }
 
 void *philo_loop(void *in_philo)
@@ -54,35 +58,68 @@ void *philo_loop(void *in_philo)
 	return (NULL);
 }
 
-void start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
+void *d_observer(void *_data)
 {
-	int i;
+	t_data *data;
+	int		i;
 
+	data = (t_data*)_data;
+	sem_wait(data->death_sema);
 	i = 0;
 	while (i < data->n_philos)
 	{
-		if (pthread_create(&(philo_threads[i]), NULL, philo_loop, &(philo[i])))
-		{
-			while (i > 0)
-			{
-				pthread_join(philo_threads[i], NULL);
-				i--;
-			}
-			return;
-		}
+		kill(data->pid_list[i], SIGINT);
+		i++;
+	}
+	data->done = true;
+	return (NULL);
+}
+
+void *f_observer(void *_data)
+{
+	t_data *data;
+	int		i;
+
+	data = (t_data*)_data;
+	i = 0;
+	while (i < data->n_philos)
+	{
+		sem_wait(data->finished_sema);
+		i++;
+	}
+	i = 0;
+	while (i < data->n_philos)
+	{
+		kill(data->pid_list[i], SIGINT);
+		i++;
+	}
+	announce("All philosophers have eaten enough!");
+	data->done = true;
+	return (NULL);
+}
+
+void start_threads(t_data *data, t_philo *philo)
+{
+	int i;
+	pthread_t death_observer;
+	pthread_t finished_observer;
+
+	data->pid_list = malloc(sizeof(pid_t) * data->n_philos);
+	if (!data->pid_list)
+		return;
+	pthread_create(&death_observer, NULL, d_observer, data);
+	pthread_create(&finished_observer, NULL, f_observer, data);
+	pthread_detach(death_observer);
+	pthread_detach(finished_observer);
+	i = 0;
+	while (i < data->n_philos)
+	{
+		data->pid_list[i] = fork();
+		if (data->pid_list[i] == 0)
+			philo_loop(philo);
 		usleep(50);
 		i++;
 	}
-	i--;
-	while (i > 0)
-	{
-		pthread_join(philo_threads[i], NULL);
-		i--;
-	}
-	if (data->state == ALIVE)
-	{
-		sem_wait(philo->data->write_sema);
-		announce("All philosophers have eaten enough!");
-		sem_post(philo->data->write_sema);
-	}
+	while (!data->done)
+		usleep(100);
 }

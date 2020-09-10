@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <zconf.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
 typedef enum	e_state
 {
@@ -34,8 +35,12 @@ typedef struct		s_data
 	int				n_meals;
 	sem_t			*fork_sema;
 	sem_t			*write_sema;
+	sem_t			*death_sema;
+	sem_t 			*finished_sema;
 	t_state			state;
 	uint64_t		start_time;
+	pid_t 			*pid_list;
+	bool 			done;
 }					t_data;
 
 typedef struct		s_philo
@@ -53,8 +58,7 @@ void					ft_putchar_fd(char c, int fd);
 void					ft_putstr_fd(char *s, int fd);
 size_t					ft_strlen(const char *str);
 long long				ft_strtoll(char *str, int base);
-void 					start_threads(t_data *data, t_philo *philo,
-						pthread_t *philo_threads);
+void 					start_threads(t_data *data, t_philo *philo);
 void my_usleep(uint64_t wait, t_philo *philo);
 int safe_announce(char *message, t_philo *philo, int death);
 void close_semaphores(t_data *data);

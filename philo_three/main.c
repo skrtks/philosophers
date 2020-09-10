@@ -43,24 +43,23 @@ int init_data(char** argv, t_data *data, int argc)
 	return (0);
 }
 
-t_philo *free_on_error(t_philo *philo, pthread_t *philo_thread)
+t_philo *free_on_error(t_philo *philo)
 {
-	if (philo_thread)
-		free(philo_thread);
+	if (philo && philo->data->pid_list)
+		free(philo->data->pid_list);
 	if (philo)
 		free(philo);
 	return (NULL);
 }
 
-t_philo *init_philos(t_data *data, pthread_t **philo_threads)
+t_philo *init_philos(t_data *data)
 {
 	int i;
 	t_philo *philos;
 
 	philos = malloc(sizeof(t_philo) * data->n_philos);
-	*philo_threads = malloc(sizeof(pthread_t) * data->n_philos);
-	if (!philos || !*philo_threads)
-		return (free_on_error(philos, *philo_threads));
+	if (!philos)
+		return (free_on_error(philos));
 	i = 0;
 	while (i < data->n_philos)
 	{
@@ -75,7 +74,6 @@ t_philo *init_philos(t_data *data, pthread_t **philo_threads)
 int main(int argc, char **argv) {
 	t_data *data;
 	t_philo *philos;
-	pthread_t *philo_threads;
 
 	data = malloc(sizeof(t_data));
 	if ((argc != 5 && argc != 6) || !data)
@@ -88,7 +86,7 @@ int main(int argc, char **argv) {
 		announce("Error loading info");
 		return (1);
 	}
-	philos = init_philos(data, &philo_threads);
+	philos = init_philos(data);
 	if (!philos)
 	{
 		announce("Error creating philos");
@@ -99,8 +97,7 @@ int main(int argc, char **argv) {
 		announce("Error creating semaphores");
 		return (1);
 	}
-	start_threads(data, philos, philo_threads);
-	close_semaphores(data);
-	free_on_error(philos, philo_threads);
+	start_threads(data, philos);
+	free_on_error(philos);
 	return (0);
 }
