@@ -82,7 +82,7 @@ void start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 	if (data->state == ALIVE)
 	{
 		pthread_mutex_lock(&data->write_mutex);
-		announce("All philosophers have eaten enough!");
+		announce("All philosophers finished eating!");
 		pthread_mutex_unlock(&data->write_mutex);
 	}
 }

@@ -82,7 +82,7 @@ void start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 	if (data->state == ALIVE)
 	{
 		sem_wait(philo->data->write_sema);
-		announce("All philosophers have eaten enough!");
+		announce("All philosophers finished eating!");
 		sem_post(philo->data->write_sema);
 	}
 }

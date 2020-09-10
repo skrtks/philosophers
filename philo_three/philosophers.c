@@ -93,7 +93,7 @@ void *f_observer(void *_data)
 		kill(data->pid_list[i], SIGINT);
 		i++;
 	}
-	announce("All philosophers have eaten enough!");
+	announce("All philosophers finished eating!");
 	data->done = true;
 	return (NULL);
 }
