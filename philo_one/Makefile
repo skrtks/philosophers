@@ -15,34 +15,29 @@ SRCS = main.c ft_strtoll.c \
               utils.c \
               philosophers.c
 CC = gcc
-CFLAGS = -I. -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 NAME = philo_one
-
-OBJ := $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@
+$(NAME): $(SRCS)
+	$(CC) $(CFLAGS) $(SRCS) -o $@
 
-%.o: %.c
-	$(CC) $(CFLAGS) -g -c $< -o $@
-
-debug:
+debug: $(SRCS)
 	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME)
 
-asan: $(OBJ)
+asan: $(SRCS)
 	$(CC) $(CFLAGS) -g -fsanitize=address -fno-omit-frame-pointer $(SRCS) -o
 	$(NAME)
 
-usan: $(OBJ)
+usan: $(SRCS)
 	$(CC) $(CFLAGS) -g -fsanitize=undefined -fno-omit-frame-pointer $(SRCS) -o
 	$(NAME)
 
 .PHONY: clean fclean re all test
 
 clean:
-	-rm -f $(OBJ)
+	-rm -f $(NAME)
 
 fclean: clean
 	-rm -f $(NAME)
