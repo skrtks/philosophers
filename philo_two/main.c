@@ -43,12 +43,15 @@ int init_data(char** argv, t_data *data, int argc)
 	return (0);
 }
 
-t_philo *free_on_error(t_philo *philo, pthread_t *pthread)
+t_philo *free_on_error(t_philo *philo, pthread_t *philo_thread)
 {
+	int i;
+
+	i = 0;
+	if (philo_thread)
+		free(philo_thread);
 	if (philo)
 		free(philo);
-	if (pthread)
-		free(pthread);
 	return (NULL);
 }
 

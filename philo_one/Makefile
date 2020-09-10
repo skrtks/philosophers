@@ -27,11 +27,11 @@ debug: $(SRCS)
 	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME)
 
 asan: $(SRCS)
-	$(CC) $(CFLAGS) -g -fsanitize=address -fno-omit-frame-pointer $(SRCS) -o
+	$(CC) $(CFLAGS) -g -fsanitize=address -fno-omit-frame-pointer $(SRCS) -o \
 	$(NAME)
 
 usan: $(SRCS)
-	$(CC) $(CFLAGS) -g -fsanitize=undefined -fno-omit-frame-pointer $(SRCS) -o
+	$(CC) $(CFLAGS) -g -fsanitize=undefined -fno-omit-frame-pointer $(SRCS) -o \
 	$(NAME)
 
 .PHONY: clean fclean re all test
