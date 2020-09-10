@@ -16,11 +16,11 @@
 void eat(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->fork_mutex[philo->l_fork]));
-	safe_announce("picked up fork.", philo);
+	safe_announce("picked up fork.", philo, 0);
 	pthread_mutex_lock(&(philo->data->fork_mutex[philo->r_fork]));
-	safe_announce("picked up fork.", philo);
-	safe_announce("is eating.", philo);
-	my_usleep(philo->data->t_eat);
+	safe_announce("picked up fork.", philo, 0);
+	safe_announce("is eating.", philo, 0);
+	my_usleep(philo->data->t_eat, philo);
 	philo->last_eaten = get_time();
 	philo->amount_eaten++;
 	pthread_mutex_unlock(&(philo->data->fork_mutex[philo->l_fork]));
@@ -38,26 +38,18 @@ void *philo_loop(void *in_philo)
 	{
 		if ((get_time() - philo->last_eaten) > philo->data->t_die)
 		{
-			safe_announce("died.", philo);
-			philo->data->state = DEATH;
+			safe_announce("died.", philo, 1);
 			break;
 		}
 		eat(philo);
+		safe_announce("is sleeping.", philo, 0);
+		my_usleep(philo->data->t_sleep, philo);
 		if ((get_time() - philo->last_eaten) > philo->data->t_die)
 		{
-			safe_announce("died.", philo);
-			philo->data->state = DEATH;
+			safe_announce("died.", philo, 1);
 			break;
 		}
-		safe_announce("is sleeping.", philo);
-		my_usleep(philo->data->t_sleep);
-		if ((get_time() - philo->last_eaten) > philo->data->t_die)
-		{
-			safe_announce("died.", philo);
-			philo->data->state = DEATH;
-			break;
-		}
-		safe_announce("is thinking.", philo);
+		safe_announce("is thinking.", philo, 0);
 	}
 	return (NULL);
 }
