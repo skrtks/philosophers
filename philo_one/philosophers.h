@@ -33,6 +33,7 @@ typedef struct		s_data
 	int				n_meals;
 	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	write_mutex;
+	pthread_mutex_t eat_mutex;
 	t_state			state;
 	uint64_t		start_time;
 }					t_data;
@@ -57,7 +58,7 @@ size_t					ft_strlen(const char *str);
 long long				ft_strtoll(char *str, int base);
 void 					start_threads(t_data *data, t_philo *philo,
 						pthread_t *philo_threads);
-void my_usleep(uint64_t wait, t_philo *philo);
+void my_usleep(uint64_t wait);
 int safe_announce(char *message, t_philo *philo, int death);
 void destroy_mutexes(t_data* data, int pos);
 

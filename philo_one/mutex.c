@@ -17,6 +17,7 @@ void destroy_mutexes(t_data* data, int pos)
 {
 	int i;
 	pthread_mutex_destroy((&data->write_mutex));
+	pthread_mutex_destroy((&data->eat_mutex));
 	i = 0;
 	while (i < pos)
 	{
@@ -31,6 +32,11 @@ int init_mutex(t_data *data)
 
 	if (pthread_mutex_init(&data->write_mutex, NULL))
 		return (1);
+	if (pthread_mutex_init(&data->eat_mutex, NULL))
+	{
+		pthread_mutex_destroy((&data->write_mutex));
+		return (1);
+	}
 	i = 0;
 	while (i < data->n_philos)
 	{
