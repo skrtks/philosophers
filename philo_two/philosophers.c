@@ -29,10 +29,7 @@ static void	*observe(void *_philo)
 			break ;
 		}
 		if ((get_time() - philo->last_eaten) > data->t_die)
-		{
-			safe_announce("died.", philo, 0);
-			data->state = DEATH;
-		}
+			safe_announce("died.", philo, 1);
 		sem_post(data->eat_sema);
 		usleep(100);
 	}
