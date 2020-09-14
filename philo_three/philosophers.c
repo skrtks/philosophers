@@ -135,7 +135,7 @@ void start_threads(t_data *data, t_philo *philo)
 	{
 		data->pid_list[i] = fork();
 		if (data->pid_list[i] == 0)
-			philo_loop(philo);
+			philo_loop(&philo[i]);
 		usleep(50);
 		i++;
 	}
