@@ -34,6 +34,7 @@ typedef struct		s_data
 	int				n_meals;
 	sem_t			*fork_sema;
 	sem_t			*write_sema;
+	sem_t			*eat_sema;
 	t_state			state;
 	uint64_t		start_time;
 }					t_data;
@@ -57,7 +58,7 @@ size_t					ft_strlen(const char *str);
 long long				ft_strtoll(char *str, int base);
 void 					start_threads(t_data *data, t_philo *philo,
 						pthread_t *philo_threads);
-void my_usleep(uint64_t wait, t_philo *philo);
+void my_usleep(uint64_t wait);
 int safe_announce(char *message, t_philo *philo, int death);
 void close_semaphores(t_data *data);
 int open_semaphores(t_data *data);
