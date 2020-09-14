@@ -89,18 +89,11 @@ uint64_t	get_time()
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void my_usleep(uint64_t wait, t_philo *philo)
+void my_usleep(uint64_t wait)
 {
 	uint64_t	start;
 
 	start = get_time();
 	while ((get_time() - start) < wait)
-	{
-		if ((get_time() - philo->last_eaten) > philo->data->t_die)
-		{
-			safe_announce("died.", philo, 1);
-			break;
-		}
 		usleep(100);
-	}
 }

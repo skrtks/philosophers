@@ -19,12 +19,15 @@ int open_semaphores(t_data *data)
 	data->write_sema = sem_open("/write_sema", O_CREAT, 0644, 1);
 	data->death_sema = sem_open("/death_sema", O_CREAT, 0644, 0);
 	data->finished_sema = sem_open("/finished_sema", O_CREAT, 0644, 0);
+	data->eat_sema = sem_open("/eat_sema", O_CREAT, 0644, 1);
 	sem_unlink("/fork_sema");
 	sem_unlink("/write_sema");
 	sem_unlink("/death_sema");
 	sem_unlink("/finished_sema");
+	sem_unlink("/eat_sema");
 	if (data->fork_sema == SEM_FAILED || data->write_sema == SEM_FAILED ||
-		data->death_sema == SEM_FAILED || data->finished_sema == SEM_FAILED)
+		data->death_sema == SEM_FAILED || data->finished_sema == SEM_FAILED ||
+		data->eat_sema == SEM_FAILED)
 		return (1);
 	return (0);
 }
