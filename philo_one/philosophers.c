@@ -13,12 +13,12 @@
 #include <pthread/pthread.h>
 #include "philosophers.h"
 
-static void	*observe(void *v_philo)
+static void	*observe(void *_philo)
 {
 	t_philo		*philo;
 	t_data		*data;
 
-	philo = (t_philo*)v_philo;
+	philo = (t_philo*)_philo;
 	data = philo->data;
 	while (philo->amount_eaten != data->n_meals)
 	{
