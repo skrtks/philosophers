@@ -38,7 +38,7 @@ static void	*observe(void *_philo)
 	return (NULL);
 }
 
-void eat(t_philo *philo)
+void		eat(t_philo *philo)
 {
 	sem_wait(philo->data->fork_sema);
 	safe_announce("picked up fork.", philo, 0);
@@ -56,10 +56,10 @@ void eat(t_philo *philo)
 		sem_post(philo->data->finished_sema);
 }
 
-void *philo_loop(void *in_philo)
+void		*philo_loop(void *in_philo)
 {
-	t_philo *philo;
-	pthread_t observe_thread;
+	t_philo		*philo;
+	pthread_t	observe_thread;
 
 	philo = (t_philo*) in_philo;
 	philo->last_eaten = get_time();
@@ -77,9 +77,9 @@ void *philo_loop(void *in_philo)
 	return (NULL);
 }
 
-void *d_observer(void *_data)
+void		*d_observer(void *_data)
 {
-	t_data *data;
+	t_data	*data;
 	int		i;
 
 	data = (t_data*)_data;
@@ -94,9 +94,9 @@ void *d_observer(void *_data)
 	return (NULL);
 }
 
-void *f_observer(void *_data)
+void		*f_observer(void *_data)
 {
-	t_data *data;
+	t_data	*data;
 	int		i;
 
 	data = (t_data*)_data;
@@ -117,11 +117,11 @@ void *f_observer(void *_data)
 	return (NULL);
 }
 
-void start_threads(t_data *data, t_philo *philo)
+void		start_threads(t_data *data, t_philo *philo)
 {
-	int i;
-	pthread_t death_observer;
-	pthread_t finished_observer;
+	int			i;
+	pthread_t	death_observer;
+	pthread_t	finished_observer;
 
 	data->pid_list = malloc(sizeof(pid_t) * data->n_philos);
 	if (!data->pid_list)

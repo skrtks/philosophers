@@ -9,4 +9,4 @@ add_executable(philo_three main.c ft_strtoll.c
         semaphore.c
         philosophers.c
         philosophers.h
-        utils.c)
+        utils.c utils_2.c)

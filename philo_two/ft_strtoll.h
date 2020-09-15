@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STRTOLL_H
-#define FT_STRTOLL_H
-
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdlib.h>
@@ -28,6 +25,3 @@ typedef struct			s_info
 }						t_info;
 
 #endif
-
-
-#endif //FT_STRTOLL_H

@@ -1,9 +1,3 @@
-//
-// Created by Sam Kortekaas on 23/07/2020.
-//
-#ifndef FT_STRTOLL_H
-#define FT_STRTOLL_H
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
@@ -31,6 +25,3 @@ typedef struct			s_info
 }						t_info;
 
 #endif
-
-
-#endif //FT_STRTOLL_H

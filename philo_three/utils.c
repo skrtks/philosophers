@@ -15,48 +15,14 @@
 #include <semaphore.h>
 #include "philosophers.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t l;
-
-	l = 0;
-	while (str[l])
-		l++;
-	return (l);
-}
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
-}
-
-void		ft_putnbr_fd(uint64_t n, int fd)
-{
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n *= -1;
-	}
-	if (n > 9)
-		ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd((char)(n % 10 + '0'), fd);
-}
-
-int announce(char *message)
+int			announce(char *message)
 {
 	write(1, message, ft_strlen(message));
 	write(1, "\n", 1);
-	return (0);
+	return (1);
 }
 
-int safe_announce(char *message, t_philo *philo, int death)
+int			safe_announce(char *message, t_philo *philo, int death)
 {
 	t_data	*data;
 
@@ -89,7 +55,7 @@ uint64_t	get_time()
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void my_usleep(uint64_t wait)
+void		my_usleep(uint64_t wait)
 {
 	uint64_t	start;
 

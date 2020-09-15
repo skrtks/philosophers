@@ -31,8 +31,8 @@ static void					preprocess(int *i, const char *str, t_info *info)
 	}
 	if ((info->base == 0 || info->base == 16) && str[*i] == '0' &&
 		(str[*i + 1] == 'x' || str[*i + 1] == 'X') && ((str[*i + 2] >= '0' &&
-														str[*i + 2] <= '9') || (str[*i + 2] >= 'a' && str[*i + 2] <= 'f') ||
-													   (str[*i + 2] >= 'A' && str[*i + 2] <= 'F')))
+		str[*i + 2] <= '9') || (str[*i + 2] >= 'a' && str[*i + 2] <= 'f') ||
+		(str[*i + 2] >= 'A' && str[*i + 2] <= 'F')))
 	{
 		info->base = 16;
 		*i += 2;
