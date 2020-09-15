@@ -85,6 +85,7 @@ void		*d_observer(void *_data)
 	data = (t_data*)_data;
 	sem_wait(data->death_sema);
 	i = 0;
+	sem_wait(data->write_sema);
 	while (i < data->n_philos)
 	{
 		kill(data->pid_list[i], SIGINT);
@@ -107,6 +108,7 @@ void		*f_observer(void *_data)
 		i++;
 	}
 	i = 0;
+	sem_wait(data->write_sema);
 	while (i < data->n_philos)
 	{
 		kill(data->pid_list[i], SIGINT);
