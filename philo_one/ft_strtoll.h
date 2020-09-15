@@ -31,6 +31,4 @@ typedef struct			s_info
 }						t_info;
 
 #endif
-
-
 #endif //FT_STRTOLL_H

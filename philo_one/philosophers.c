@@ -36,7 +36,7 @@ static void	*observe(void *_philo)
 	return (NULL);
 }
 
-void eat(t_philo *philo)
+void		eat(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->fork_mutex[philo->l_fork]));
 	safe_announce("picked up fork.", philo, 0);
@@ -52,10 +52,10 @@ void eat(t_philo *philo)
 	pthread_mutex_unlock(&(philo->data->fork_mutex[philo->r_fork]));
 }
 
-void *philo_loop(void *in_philo)
+void		*philo_loop(void *in_philo)
 {
-	t_philo *philo;
-	pthread_t observe_thread;
+	t_philo		*philo;
+	pthread_t	observe_thread;
 
 	philo = (t_philo*) in_philo;
 	philo->last_eaten = get_time();
@@ -73,9 +73,9 @@ void *philo_loop(void *in_philo)
 	return (NULL);
 }
 
-void start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
+void		start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->n_philos)
@@ -87,7 +87,7 @@ void start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 				pthread_join(philo_threads[i], NULL);
 				i--;
 			}
-			return;
+			return ;
 		}
 		usleep(50);
 		i++;
@@ -99,9 +99,5 @@ void start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 		i--;
 	}
 	if (data->state == ALIVE)
-	{
-		pthread_mutex_lock(&data->write_mutex);
 		announce("All philosophers finished eating!");
-		pthread_mutex_unlock(&data->write_mutex);
-	}
 }

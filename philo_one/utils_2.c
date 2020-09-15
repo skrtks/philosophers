@@ -10,43 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include "philosophers.h"
+#include <zconf.h>
 
-void	destroy_mutexes(t_data* data, int pos)
+size_t		ft_strlen(const char *str)
 {
-	int	i;
+	size_t l;
 
-	pthread_mutex_destroy((&data->write_mutex));
-	pthread_mutex_destroy((&data->eat_mutex));
-	i = 0;
-	while (i < pos)
-	{
-		pthread_mutex_destroy((&data->fork_mutex[i]));
-		i++;
-	}
+	l = 0;
+	while (str[l])
+		l++;
+	return (l);
 }
 
-int		init_mutex(t_data *data)
+void		ft_putchar_fd(char c, int fd)
 {
-	int	i;
+	write(fd, &c, 1);
+}
 
-	if (pthread_mutex_init(&data->write_mutex, NULL))
-		return (1);
-	if (pthread_mutex_init(&data->eat_mutex, NULL))
+void		ft_putstr_fd(char *s, int fd)
+{
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
+}
+
+void		ft_putnbr_fd(uint64_t n, int fd)
+{
+	if (n < 0)
 	{
-		pthread_mutex_destroy((&data->write_mutex));
-		return (1);
+		ft_putchar_fd('-', fd);
+		n *= -1;
 	}
-	i = 0;
-	while (i < data->n_philos)
-	{
-		if (pthread_mutex_init(&data->fork_mutex[i], NULL))
-		{
-			destroy_mutexes(data, i);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+	if (n > 9)
+		ft_putnbr_fd(n / 10, fd);
+	ft_putchar_fd((char)(n % 10 + '0'), fd);
 }
