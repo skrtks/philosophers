@@ -34,13 +34,8 @@ void		ft_putstr_fd(char *s, int fd)
 	write(fd, s, ft_strlen(s));
 }
 
-void		ft_putnbr_fd(uint64_t n, int fd)
+void		ft_putnbr_fd(u_int64_t n, int fd)
 {
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n *= -1;
-	}
 	if (n > 9)
 		ft_putnbr_fd(n / 10, fd);
 	ft_putchar_fd((char)(n % 10 + '0'), fd);
