@@ -25,7 +25,7 @@ $(NAME): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -o $@
 
 debug: $(SRCS)
-	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) -g -pthread  $(SRCS) -o $(NAME)
 
 asan: $(SRCS)
 	$(CC) $(CFLAGS) -g -fsanitize=address -fno-omit-frame-pointer $(SRCS) -o \

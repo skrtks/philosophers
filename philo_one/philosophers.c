@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread/pthread.h>
+#include <pthread.h>
 #include "philosophers.h"
 
 static void	*observe(void *_philo)
@@ -89,7 +89,7 @@ void		start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 			}
 			return ;
 		}
-		usleep(50);
+		usleep(100);
 		i++;
 	}
 	i--;

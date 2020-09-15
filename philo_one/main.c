@@ -34,10 +34,12 @@ int		init_data(char** argv, t_data *data, int argc)
 	return (0);
 }
 
-t_philo	*free_on_error(pthread_mutex_t *mutex, t_philo *philo, pthread_t *pthread)
+t_philo	*free_on_error(t_data *data, t_philo *philo, pthread_t *pthread)
 {
-	if (mutex)
-		free(mutex);
+	if (data && data->fork_mutex)
+		free(data->fork_mutex);
+	if (data)
+		free(data);
 	if (philo)
 		free(philo);
 	if (pthread)
@@ -54,7 +56,7 @@ t_philo	*init_philos(t_data *data, pthread_t **philo_threads)
 	philos = malloc(sizeof(t_philo) * data->n_philos);
 	*philo_threads = malloc(sizeof(pthread_t) * data->n_philos);
 	if (!data->fork_mutex || !philos || !*philo_threads)
-		return (free_on_error(data->fork_mutex, philos, *philo_threads));
+		return (free_on_error(data, philos, *philo_threads));
 	i = 0;
 	while (i < data->n_philos)
 	{
@@ -85,6 +87,6 @@ int		main(int argc, char **argv) {
 		return (announce("Error creating mutexes"));
 	start_threads(data, philos, philo_threads);
 	destroy_mutexes(data, data->n_philos);
-	free_on_error(data->fork_mutex, philos, philo_threads);
+	free_on_error(data, philos, philo_threads);
 	return (0);
 }
