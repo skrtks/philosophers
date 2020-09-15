@@ -13,14 +13,14 @@
 #include <semaphore.h>
 #include "philosophers.h"
 
-void close_semaphores(t_data *data)
+void	close_semaphores(t_data *data)
 {
 	sem_close(data->write_sema);
 	sem_close(data->fork_sema);
 	sem_close(data->eat_sema);
 }
 
-int open_semaphores(t_data *data)
+int		open_semaphores(t_data *data)
 {
 	data->fork_sema = sem_open("/fork_sema", O_CREAT, 0644, data->n_philos);
 	data->write_sema = sem_open("/write_sema", O_CREAT, 0644, 1);

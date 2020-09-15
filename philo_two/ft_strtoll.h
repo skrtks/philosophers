@@ -1,9 +1,3 @@
-//
-// Created by Sam Kortekaas on 23/07/2020.
-//
-#ifndef FT_STRTOLL_H
-#define FT_STRTOLL_H
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
@@ -15,6 +9,9 @@
 /*   Updated: 2020/05/02 15:41:44 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef FT_STRTOLL_H
+#define FT_STRTOLL_H
 
 #ifndef LIBFT_H
 # define LIBFT_H

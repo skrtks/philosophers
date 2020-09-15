@@ -11,54 +11,37 @@
 /* ************************************************************************** */
 
 #include <zconf.h>
-#include <sys/time.h>
-#include <semaphore.h>
-#include "philosophers.h"
 
-int announce(char *message)
+size_t	ft_strlen(const char *str)
 {
-	write(1, message, ft_strlen(message));
-	write(1, "\n", 1);
-	return (1);
+	size_t l;
+
+	l = 0;
+	while (str[l])
+		l++;
+	return (l);
 }
 
-int safe_announce(char *message, t_philo *philo, int death)
+void	ft_putchar_fd(char c, int fd)
 {
-	t_data	*data;
+	write(fd, &c, 1);
+}
 
-	data = philo->data;
-	sem_wait(data->write_sema);
-	if (data->state == ALIVE && philo->amount_eaten != data->n_meals)
+void	ft_putstr_fd(char *s, int fd)
+{
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
+}
+
+void		ft_putnbr_fd(uint64_t n, int fd)
+{
+	if (n < 0)
 	{
-		ft_putnbr_fd(get_time() - philo->data->start_time, 1);
-		write(1, "\t", 1);
-		ft_putnbr_fd(philo->id, 1);
-		write(1, " ", 1);
-		write(1, message, ft_strlen(message));
-		write(1, "\n", 1);
+		ft_putchar_fd('-', fd);
+		n *= -1;
 	}
-	if (death)
-	{
-		philo->data->state = DEATH;
-		usleep(500);
-	}
-	sem_post(data->write_sema);
-	return (0);
-}
-
-uint64_t	get_time()
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
-
-void my_usleep(uint64_t wait)
-{
-	uint64_t	start;
-
-	start = get_time();
-	while ((get_time() - start) < wait)
-		usleep(100);
+	if (n > 9)
+		ft_putnbr_fd(n / 10, fd);
+	ft_putchar_fd((char)(n % 10 + '0'), fd);
 }

@@ -13,6 +13,7 @@
 SRCS = main.c ft_strtoll.c \
               semaphore.c \
               utils.c \
+              utils_2.c \
               philosophers.c
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra

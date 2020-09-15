@@ -13,7 +13,7 @@
 #include "philosophers.h"
 #include "ft_strtoll.h"
 
-int init_data(char** argv, t_data *data, int argc)
+int		init_data(char** argv, t_data *data, int argc)
 {
 	if (argc == 6)
 		data->n_meals = (int) ft_strtoll(argv[5], 10);
@@ -26,24 +26,15 @@ int init_data(char** argv, t_data *data, int argc)
 	data->state = ALIVE;
 	data->start_time = get_time();
 	if (data->t_die <= 0 || data->t_eat <= 0 || data->t_sleep <= 0)
-	{
-		announce("Provided times have to be => 0.");
-		return (1);
-	}
+		return (announce("Provided times have to be => 0."));
 	if (data->n_philos < 2)
-	{
-		announce("Please provide 2 or more philosophers.");
-		return (1);
-	}
+		return (announce("Please provide 2 or more philosophers."));
 	if (argc == 6 && data->n_meals < 0)
-	{
-		announce("Number of meals has to be positive.");
-		return (1);
-	}
+		return (announce("Number of meals has to be positive."));
 	return (0);
 }
 
-t_philo *free_on_error(t_philo *philo, pthread_t *philo_thread)
+t_philo	*free_on_error(t_philo *philo, pthread_t *philo_thread)
 {
 	if (philo_thread)
 		free(philo_thread);
@@ -52,10 +43,10 @@ t_philo *free_on_error(t_philo *philo, pthread_t *philo_thread)
 	return (NULL);
 }
 
-t_philo *init_philos(t_data *data, pthread_t **philo_threads)
+t_philo	*init_philos(t_data *data, pthread_t **philo_threads)
 {
-	int i;
-	t_philo *philos;
+	int		i;
+	t_philo	*philos;
 
 	philos = malloc(sizeof(t_philo) * data->n_philos);
 	*philo_threads = malloc(sizeof(pthread_t) * data->n_philos);
@@ -72,28 +63,19 @@ t_philo *init_philos(t_data *data, pthread_t **philo_threads)
 	return (philos);
 }
 
-int main(int argc, char **argv) {
-	t_data *data;
-	t_philo *philos;
-	pthread_t *philo_threads;
+int	main(int argc, char **argv) {
+	t_data		*data;
+	t_philo		*philos;
+	pthread_t	*philo_threads;
 
 	data = malloc(sizeof(t_data));
 	if ((argc != 5 && argc != 6) || !data)
-	{
-		announce("Invalid number of arguments");
-		return (1);
-	}
+		return (announce("Invalid number of arguments"));
 	if (init_data(argv, data, argc))
-	{
-		announce("Error loading info");
-		return (1);
-	}
+		return (announce("Error loading info"));
 	philos = init_philos(data, &philo_threads);
 	if (!philos)
-	{
-		announce("Error creating philos");
-		return (1);
-	}
+		return (announce("Error creating philos"));
 	if (open_semaphores(data))
 	{
 		announce("Error creating semaphores");
