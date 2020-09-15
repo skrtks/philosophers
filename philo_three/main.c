@@ -34,8 +34,10 @@ int	init_data(char** argv, t_data *data, int argc)
 	return (0);
 }
 
-t_philo	*free_on_error(t_philo *philo)
+t_philo	*free_on_error(t_data *data, t_philo *philo)
 {
+	if (data)
+		free(data);
 	if (philo && philo->data->pid_list)
 		free(philo->data->pid_list);
 	if (philo)
@@ -50,7 +52,7 @@ t_philo	*init_philos(t_data *data)
 
 	philos = malloc(sizeof(t_philo) * data->n_philos);
 	if (!philos)
-		return (free_on_error(philos));
+		return (free_on_error(data, philos));
 	i = 0;
 	while (i < data->n_philos)
 	{
@@ -77,6 +79,6 @@ int	main(int argc, char **argv) {
 	if (open_semaphores(data))
 		return (announce("Error creating semaphores"));
 	start_threads(data, philos);
-	free_on_error(philos);
+	free_on_error(data, philos);
 	return (0);
 }

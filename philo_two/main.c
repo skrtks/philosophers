@@ -34,8 +34,10 @@ int		init_data(char** argv, t_data *data, int argc)
 	return (0);
 }
 
-t_philo	*free_on_error(t_philo *philo, pthread_t *philo_thread)
+t_philo	*free_on_error(t_data *data, t_philo *philo, pthread_t *philo_thread)
 {
+	if (data)
+		free(data);
 	if (philo_thread)
 		free(philo_thread);
 	if (philo)
@@ -51,7 +53,7 @@ t_philo	*init_philos(t_data *data, pthread_t **philo_threads)
 	philos = malloc(sizeof(t_philo) * data->n_philos);
 	*philo_threads = malloc(sizeof(pthread_t) * data->n_philos);
 	if (!philos || !*philo_threads)
-		return (free_on_error(philos, *philo_threads));
+		return (free_on_error(data, philos, *philo_threads));
 	i = 0;
 	while (i < data->n_philos)
 	{
@@ -83,6 +85,6 @@ int	main(int argc, char **argv) {
 	}
 	start_threads(data, philos, philo_threads);
 	close_semaphores(data);
-	free_on_error(philos, philo_threads);
+	free_on_error(data, philos, philo_threads);
 	return (0);
 }
