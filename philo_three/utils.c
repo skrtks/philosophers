@@ -64,6 +64,8 @@ int			safe_announce(char *message, t_philo *philo, int death)
 	{
 		philo->data->state = DEATH;
 		sem_post(philo->data->death_sema);
+		usleep(100);
+		sem_post(data->write_sema);
 	}
 	else
 		sem_post(data->write_sema);
