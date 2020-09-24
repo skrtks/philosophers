@@ -12,7 +12,7 @@
 
 #include <zconf.h>
 
-size_t	ft_strlen(const char *str)
+size_t		ft_strlen(const char *str)
 {
 	size_t	l;
 
@@ -22,12 +22,12 @@ size_t	ft_strlen(const char *str)
 	return (l);
 }
 
-void	ft_putchar_fd(char c, int fd)
+void		ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void		ft_putstr_fd(char *s, int fd)
 {
 	if (!s)
 		return ;

@@ -15,12 +15,12 @@
 #include <signal.h>
 #include "philosophers.h"
 
-static void	*observe(void *_philo)
+static void	*observe(void *a_philo)
 {
 	t_philo		*philo;
 	t_data		*data;
 
-	philo = (t_philo*)_philo;
+	philo = (t_philo*)a_philo;
 	data = philo->data;
 	while (philo->amount_eaten != data->n_meals)
 	{
@@ -61,7 +61,7 @@ void		*philo_loop(void *in_philo)
 	t_philo		*philo;
 	pthread_t	observe_thread;
 
-	philo = (t_philo*) in_philo;
+	philo = (t_philo*)in_philo;
 	philo->last_eaten = get_time();
 	if (pthread_create(&observe_thread, NULL, observe, philo) != 0)
 		return (NULL);
@@ -77,12 +77,12 @@ void		*philo_loop(void *in_philo)
 	return (NULL);
 }
 
-void		*d_observer(void *_data)
+void		*d_observer(void *a_data)
 {
 	t_data	*data;
 	int		i;
 
-	data = (t_data*)_data;
+	data = (t_data*)a_data;
 	sem_wait(data->death_sema);
 	i = 0;
 	sem_wait(data->write_sema);
@@ -95,12 +95,12 @@ void		*d_observer(void *_data)
 	return (NULL);
 }
 
-void		*f_observer(void *_data)
+void		*f_observer(void *a_data)
 {
 	t_data	*data;
 	int		i;
 
-	data = (t_data*)_data;
+	data = (t_data*)a_data;
 	i = 0;
 	while (i < data->n_philos)
 	{
@@ -127,7 +127,7 @@ void		start_threads(t_data *data, t_philo *philo)
 
 	data->pid_list = malloc(sizeof(pid_t) * data->n_philos);
 	if (!data->pid_list)
-		return;
+		return ;
 	pthread_create(&death_observer, NULL, d_observer, data);
 	pthread_create(&finished_observer, NULL, f_observer, data);
 	pthread_detach(death_observer);
