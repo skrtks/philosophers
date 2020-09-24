@@ -68,5 +68,6 @@ size_t				ft_strlen(const char *str);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putnbr_fd(uint64_t n, int fd);
+void				*observe(void *a_philo);
 
 #endif //PHILOSOPHERS_H

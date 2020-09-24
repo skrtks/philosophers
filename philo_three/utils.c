@@ -15,6 +15,29 @@
 #include <semaphore.h>
 #include "philosophers.h"
 
+void	*observe(void *a_philo)
+{
+	t_philo		*philo;
+	t_data		*data;
+
+	philo = (t_philo*)a_philo;
+	data = philo->data;
+	while (philo->amount_eaten != data->n_meals)
+	{
+		sem_wait(data->eat_sema);
+		if (data->state == DEATH)
+		{
+			sem_post(data->eat_sema);
+			break ;
+		}
+		if ((get_time() - philo->last_eaten) > data->t_die)
+			safe_announce("died.", philo, 1);
+		sem_post(data->eat_sema);
+		usleep(100);
+	}
+	return (NULL);
+}
+
 int			announce(char *message)
 {
 	write(1, message, ft_strlen(message));
