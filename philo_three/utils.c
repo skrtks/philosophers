@@ -15,7 +15,7 @@
 #include <semaphore.h>
 #include "philosophers.h"
 
-void	*observe(void *a_philo)
+void		*observe(void *a_philo)
 {
 	t_philo		*philo;
 	t_data		*data;

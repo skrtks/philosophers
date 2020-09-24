@@ -116,7 +116,7 @@ void		start_threads(t_data *data, t_philo *philo)
 		if (data->pid_list[i] == 0)
 		{
 			philo_loop(&philo[i]);
-			break;
+			break ;
 		}
 		usleep(50);
 		i++;
