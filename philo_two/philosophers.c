@@ -13,12 +13,12 @@
 #include <pthread/pthread.h>
 #include "philosophers.h"
 
-static void	*observe(void *_philo)
+static void	*observe(void *a_philo)
 {
 	t_philo		*philo;
 	t_data		*data;
 
-	philo = (t_philo*)_philo;
+	philo = (t_philo*)a_philo;
 	data = philo->data;
 	while (philo->amount_eaten != data->n_meals)
 	{
@@ -36,7 +36,7 @@ static void	*observe(void *_philo)
 	return (NULL);
 }
 
-void	eat(t_philo *philo)
+void		eat(t_philo *philo)
 {
 	sem_wait(philo->data->fork_sema);
 	safe_announce("picked up fork.", philo, 0);
@@ -52,12 +52,12 @@ void	eat(t_philo *philo)
 	sem_post(philo->data->fork_sema);
 }
 
-void	*philo_loop(void *in_philo)
+void		*philo_loop(void *in_philo)
 {
 	t_philo		*philo;
 	pthread_t	observe_thread;
 
-	philo = (t_philo*) in_philo;
+	philo = (t_philo*)in_philo;
 	philo->last_eaten = get_time();
 	if (pthread_create(&observe_thread, NULL, observe, philo) != 0)
 		return (NULL);
@@ -73,7 +73,8 @@ void	*philo_loop(void *in_philo)
 	return (NULL);
 }
 
-void	start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
+void		start_threads(t_data *data, t_philo *philo,
+							pthread_t *philo_threads)
 {
 	int	i;
 
@@ -87,7 +88,7 @@ void	start_threads(t_data *data, t_philo *philo, pthread_t *philo_threads)
 				pthread_join(philo_threads[i], NULL);
 				i--;
 			}
-			return;
+			return ;
 		}
 		usleep(50);
 		i++;

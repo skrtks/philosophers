@@ -15,14 +15,14 @@
 #include <semaphore.h>
 #include "philosophers.h"
 
-int announce(char *message)
+int			announce(char *message)
 {
 	write(1, message, ft_strlen(message));
 	write(1, "\n", 1);
 	return (1);
 }
 
-int safe_announce(char *message, t_philo *philo, int death)
+int			safe_announce(char *message, t_philo *philo, int death)
 {
 	t_data	*data;
 
@@ -46,7 +46,7 @@ int safe_announce(char *message, t_philo *philo, int death)
 	return (0);
 }
 
-uint64_t	get_time()
+uint64_t	get_time(void)
 {
 	struct timeval	tv;
 
@@ -54,7 +54,7 @@ uint64_t	get_time()
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void my_usleep(uint64_t wait)
+void		my_usleep(uint64_t wait)
 {
 	uint64_t	start;
 

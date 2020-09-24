@@ -34,7 +34,7 @@ void	ft_putstr_fd(char *s, int fd)
 	write(fd, s, ft_strlen(s));
 }
 
-void		ft_putnbr_fd(uint64_t n, int fd)
+void	ft_putnbr_fd(uint64_t n, int fd)
 {
 	if (n < 0)
 	{

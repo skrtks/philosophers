@@ -13,13 +13,13 @@
 #include "philosophers.h"
 #include "ft_strtoll.h"
 
-int		init_data(char** argv, t_data *data, int argc)
+int		init_data(char **argv, t_data *data, int argc)
 {
 	if (argc == 6)
-		data->n_meals = (int) ft_strtoll(argv[5], 10);
+		data->n_meals = (int)ft_strtoll(argv[5], 10);
 	else
 		data->n_meals = -1;
-	data->n_philos = (int) ft_strtoll(argv[1], 10);
+	data->n_philos = (int)ft_strtoll(argv[1], 10);
 	data->t_die = ft_strtoll(argv[2], 10);
 	data->t_eat = ft_strtoll(argv[3], 10);
 	data->t_sleep = ft_strtoll(argv[4], 10);
@@ -65,7 +65,8 @@ t_philo	*init_philos(t_data *data, pthread_t **philo_threads)
 	return (philos);
 }
 
-int	main(int argc, char **argv) {
+int		main(int argc, char **argv)
+{
 	t_data		*data;
 	t_philo		*philos;
 	pthread_t	*philo_threads;
