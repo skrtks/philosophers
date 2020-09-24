@@ -44,14 +44,14 @@ static void					preprocess(int *i, const char *str, t_info *info)
 static t_info				get_limits(t_info *info)
 {
 	info->cutoff = info->neg ? (unsigned long long)-(LLONG_MIN + LLONG_MAX) +
-							   LLONG_MAX : LLONG_MAX;
+								LLONG_MAX : LLONG_MAX;
 	info->cutlim = info->cutoff % info->base;
 	info->cutoff /= info->base;
 	return (*info);
 }
 
 static unsigned long long	convert(unsigned long long res, const char *str,
-									 int i, t_info *info)
+										int i, t_info *info)
 {
 	char				c;
 

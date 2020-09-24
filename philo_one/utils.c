@@ -46,7 +46,7 @@ int			safe_announce(char *message, t_philo *philo, int death)
 	return (0);
 }
 
-uint64_t	get_time()
+uint64_t	get_time(void)
 {
 	struct timeval	tv;
 

@@ -13,7 +13,7 @@
 #include <pthread.h>
 #include "philosophers.h"
 
-void	destroy_mutexes(t_data* data, int pos)
+void	destroy_mutexes(t_data *data, int pos)
 {
 	int	i;
 
