@@ -75,15 +75,13 @@ int		main(int argc, char **argv)
 	if ((argc != 5 && argc != 6) || !data)
 		return (announce("Invalid number of arguments"));
 	if (init_data(argv, data, argc))
-		return (announce("Error loading info"));
-	philos = init_philos(data, &philo_threads);
-	if (!philos)
-		return (announce("Error creating philos"));
-	if (open_semaphores(data))
 	{
-		announce("Error creating semaphores");
-		return (1);
+		free(data);
+		return (announce("Error loading info"));
 	}
+	philos = init_philos(data, &philo_threads);
+	if (!philos || open_semaphores(data))
+		return (announce("Error creating philos or semaphores"));
 	start_threads(data, philos, philo_threads);
 	close_semaphores(data);
 	free_on_error(data, philos, philo_threads);
