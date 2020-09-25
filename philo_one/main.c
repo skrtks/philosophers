@@ -80,12 +80,16 @@ int		main(int argc, char **argv)
 	if ((argc != 5 && argc != 6) || !data)
 		return (announce("Invalid number of arguments"));
 	if (init_data(argv, data, argc))
+	{
+		free(data);
 		return (announce("Error loading info"));
+	}
 	philos = init_philos(data, &philo_threads);
-	if (!philos)
-		return (announce("Error creating philos"));
-	if (init_mutex(data))
-		return (announce("Error creating mutexes"));
+	if (!philos || init_mutex(data))
+	{
+		free(data);
+		return (announce("Error creating philos or mutexes"));
+	}
 	start_threads(data, philos, philo_threads);
 	destroy_mutexes(data, data->n_philos);
 	free_on_error(data, philos, philo_threads);
