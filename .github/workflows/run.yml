@@ -14,16 +14,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cd
-      run: cd ../philo_one
+      run: cd philo_one
     - name: make
-      run: make; make clean
+      run: make
     - name: cd
       run: cd ../philo_two
     - name: make
-      run: make; make clean
+      run: make
     - name: cd
       run: cd ../philo_three
     - name: make
-      run: make; make clean
+      run: make
     
 
