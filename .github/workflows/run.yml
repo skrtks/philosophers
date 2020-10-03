@@ -1,0 +1,32 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: cd
+      run: cd philo_one
+    - name: make
+      run: make
+      run: make clean
+    - name: cd
+      run: cd ../philo_two
+    - name: make
+      run: make
+      run: make clean
+    - name: cd
+      run: cd ../philo_three
+    - name: make
+      run: make
+      run: make clean
+    
+
